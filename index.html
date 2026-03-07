@@ -21,7 +21,6 @@
         align-items: center;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
-        /* Use 'fixed' so the gradient doesn't stretch or move when the letter opens */
         background: linear-gradient(
             135deg,
             #fff0f3 0%,
@@ -33,19 +32,13 @@
         background-size: 400% 400%;
         animation: bgMove 12s infinite alternate;
         overflow: hidden;
-        position: fixed; /* Keeps the background from jumping on mobile */
+        position: fixed; 
       }
 
       @keyframes bgMove {
-        0% {
-          background-position: left;
-        }
-        100% {
-          background-position: right;
-        }
+        0% { background-position: left; }
+        100% { background-position: right; }
       }
-
-      /* --- THE RED ENVELOPE --- */
 
       .envelope-wrapper {
         position: relative;
@@ -67,7 +60,6 @@
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
       }
 
-      /* The Top Flap */
       .envelope::before {
         content: "";
         position: absolute;
@@ -78,12 +70,9 @@
         border-left: 160px solid transparent;
         border-right: 160px solid transparent;
         transform-origin: top;
-        transition:
-          transform 0.6s 0.2s,
-          z-index 0.2s 0.4s;
+        transition: transform 0.6s 0.2s, z-index 0.2s 0.4s;
       }
 
-      /* The Pocket (Front Sides) */
       .envelope::after {
         content: "";
         position: absolute;
@@ -97,7 +86,6 @@
         border-radius: 0 0 10px 10px;
       }
 
-      /* The Letter Inside */
       .letter {
         position: absolute;
         bottom: 5px;
@@ -110,33 +98,23 @@
         box-sizing: border-box;
         border-radius: 5px;
         z-index: 2;
-        transition:
-          transform 0.7s 0.5s,
-          height 0.7s 0.5s,
-          z-index 0.1s 0.5s;
+        transition: transform 0.7s 0.5s, height 0.7s 0.5s, z-index 0.1s 0.5s;
         box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
         overflow-y: auto;
       }
 
-      /* OPENING ANIMATION */
       .envelope-wrapper.open .envelope::before {
         transform: rotateX(180deg);
         z-index: 1;
       }
 
       .envelope-wrapper.open .letter {
-        transform: translate(-50%, -150px); /* Slides the letter out */
-        height: 230px; /* Letter gets longer */
-        z-index: 5; /* Brings letter to the very front */
+        transform: translate(-50%, -150px); 
+        height: 230px; 
+        z-index: 5; 
       }
 
-      /* Text inside letter */
       #message {
-        font-size: clamp(
-          12px,
-          4vw,
-          16px
-        ); /* Scales between 12px and 16px based on screen width */
         font-size: 14px;
         line-height: 1.6;
         color: #333;
@@ -160,90 +138,27 @@
       }
 
       @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
       }
 
-      /* Decoration Elements */
-      .heart,
-      .photoHeart {
-        position: absolute;
-        pointer-events: none;
-      }
-      .heart {
-        font-size: 24px;
-        animation: float 6s linear infinite;
-      }
+      .heart, .photoHeart { position: absolute; pointer-events: none; }
+      .heart { font-size: 24px; animation: float 6s linear infinite; }
 
-      .photoHeart {
-        width: 250px;
-        height: 250px;
-        animation: floatPhoto linear infinite;
-        z-index: 0;
-      }
+      .photoHeart { width: 250px; height: 250px; animation: floatPhoto linear infinite; z-index: 0; }
       .photoHeart img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        clip-path: polygon(
-          50% 90%,
-          90% 60%,
-          90% 30%,
-          70% 10%,
-          50% 25%,
-          30% 10%,
-          10% 30%,
-          10% 60%
-        );
+        width: 100%; height: 100%; object-fit: cover;
+        clip-path: polygon(50% 90%,90% 60%,90% 30%,70% 10%,50% 25%,30% 10%,10% 30%,10% 60%);
         opacity: 0.8;
       }
 
-      @keyframes float {
-        from {
-          transform: translateY(100vh);
-          opacity: 1;
-        }
-        to {
-          transform: translateY(-10vh);
-          opacity: 0;
-        }
-      }
-      @keyframes floatPhoto {
-        from {
-          transform: translateY(110vh) rotate(0deg);
-          opacity: 1;
-        }
-        to {
-          transform: translateY(-20vh) rotate(360deg);
-          opacity: 0;
-        }
-      }
+      @keyframes float { from { transform: translateY(100vh); opacity: 1; } to { transform: translateY(-10vh); opacity: 0; } }
+      @keyframes floatPhoto { from { transform: translateY(110vh) rotate(0deg); opacity: 1; } to { transform: translateY(-20vh) rotate(360deg); opacity: 0; } }
 
-      .kiss {
-        position: absolute;
-        font-size: 35px;
-        animation: kissFly 2s ease forwards;
-        z-index: 100;
-      }
-      @keyframes kissFly {
-        0% {
-          transform: translateY(0) scale(0.5);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-250px) scale(2);
-          opacity: 0;
-        }
-      }
+      .kiss { position: absolute; font-size: 35px; animation: kissFly 2s ease forwards; z-index: 100; }
+      @keyframes kissFly { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-250px) scale(2); opacity: 0; } }
 
-      /* Helper text */
       .instruction {
         position: absolute;
         bottom: -40px;
@@ -254,7 +169,6 @@
         letter-spacing: 1px;
       }
 
-      /* Balloon Styling */
       .balloon {
         position: absolute;
         top: 100vh;
@@ -274,7 +188,6 @@
         box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
       }
 
-      /* The string of the balloon */
       .balloon::after {
         content: "";
         position: absolute;
@@ -286,15 +199,10 @@
       }
 
       @keyframes floatUp {
-        0% {
-          transform: translateY(0) rotate(0deg);
-        }
-        100% {
-          transform: translateY(-120vh) rotate(10deg);
-        }
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-120vh) rotate(10deg); }
       }
 
-      /* Sparkle Effect */
       .sparkle {
         position: absolute;
         width: 8px;
@@ -306,79 +214,16 @@
       }
 
       @keyframes explode {
-        0% {
-          transform: translate(0, 0);
-          opacity: 1;
-        }
-        100% {
-          transform: translate(var(--dx), var(--dy));
-          opacity: 0;
-        }
-      }
-
-      /* Add this at the end of your <style> block */
-      @media (max-width: 400px) {
-        .envelope {
-          width: 280px; /* Slightly narrower */
-          height: 175px;
-        }
-
-        /* Adjust the flap (before) */
-        .envelope::before {
-          border-top-width: 95px;
-          border-left-width: 140px;
-          border-right-width: 140px;
-        }
-
-        /* Adjust the pocket (after) */
-        .envelope::after {
-          border-left-width: 140px;
-          border-right-width: 140px;
-          border-bottom-width: 80px;
-        }
-
-        /* Adjust letter pop-out distance so it doesn't go off-screen */
-        .envelope-wrapper.open .letter {
-          transform: translate(-50%, -120px);
-          height: 250px;
-        }
-      }
-      @media (max-width: 600px) {
-        .photoHeart {
-          width: 150px; /* Smaller photos on mobile */
-          height: 150px;
-        }
+        0% { transform: translate(0, 0); opacity: 1; }
+        100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
       }
 
       @media (max-width: 480px) {
-        /* Scale the envelope down for small screens */
-        .envelope {
-          width: 280px;
-          height: 180px;
-        }
-        .envelope::before {
-          border-top-width: 90px;
-          border-left-width: 140px;
-          border-right-width: 140px;
-        }
-        .envelope::after {
-          border-left-width: 140px;
-          border-right-width: 140px;
-          border-bottom-width: 90px;
-        }
-
-        /* Make sure the letter doesn't slide off the top of the screen */
-        .envelope-wrapper.open .letter {
-          transform: translate(-50%, -100px);
-          height: 250px;
-          width: 95%;
-        }
-
-        /* Shrink the floating photos so they don't hide the text */
-        .photoHeart {
-          width: 120px;
-          height: 120px;
-        }
+        .envelope { width: 280px; height: 180px; }
+        .envelope::before { border-top-width: 90px; border-left-width: 140px; border-right-width: 140px; }
+        .envelope::after { border-left-width: 140px; border-right-width: 140px; border-bottom-width: 90px; }
+        .envelope-wrapper.open .letter { transform: translate(-50%, -100px); height: 250px; width: 95%; }
+        .photoHeart { width: 120px; height: 120px; }
       }
     </style>
   </head>
@@ -397,40 +242,22 @@
     </div>
 
     <audio id="kissSound">
-      <source
-        src="./images/mixkit-long-loving-kiss-2195.wav"
-        type="audio/mpeg"
-      />
+      <source src="./images/mixkit-long-loving-kiss-2195.wav" type="audio/mpeg" />
     </audio>
-    <div
-      class="balloon"
-      style="left: 10%; animation-delay: 0s"
-      onclick="celebrate(event)"
-    >
-      গাধী
-    </div>
 
-    <div
-      class="balloon"
-      style="right: 10%; animation-delay: 5s; background: #ffd700; color: #333"
-      onclick="celebrate(event)"
-    >
-      স্যার
-    </div>
+    <div class="balloon" style="left: 10%; animation-delay: 0s" onclick="celebrate(event)">গাধী</div>
+    <div class="balloon" style="right: 10%; animation-delay: 5s; background: #ffd700; color: #333" onclick="celebrate(event)">স্যার</div>
 
     <script>
       const text = `Dear "Samiya",
 
-      I know I’ve been gone for a while, and I’m sorry for the silence. I needed to get my head clear to keep my promise to you. I did it; I finally landed the job, and honestly, you were my biggest motivation to get the job so quickly.
+I know I’ve been gone for a while, and I’m sorry for the silence. I needed to get my head clear to keep my promise to you. I did it; I finally landed the job, and honestly, you were my biggest motivation to get the job so quickly.
 
+I know my 'brain fog' and the way I handled things made it difficult for you, and I’m sorry from the bottom of my heart. Now that I’ve found my footing, I want to give us the effort you deserve. I’d love to celebrate this gain and start a new chapter with you.
 
-      I know my 'brain fog' and the way I handled things made it difficult for you, and I’m sorry from the bottom of my heart. Now that I’ve found my footing, I want to give us the effort you deserve. I’d love to celebrate this gain and start a new chapter with you.
+I still respect you and the feelings we shared. If you’re open to it, I’d really like to talk again and see where things could go from here. If you don’t feel the same anymore, I will respect that too. Either way, I truly hope you’re doing well.
 
-
-      I still respect you and the feelings we shared. If you’re open to it, I’d really like to talk again and see where things could go from here. If you don’t feel the same anymore, I will respect that too. Either way, I truly hope you’re doing well.
-
-
-      I’ll give you some space and time to process this, but I’m here when you’re ready to talk Just give me a little knock❤️`;
+I’ll give you some space and time to process this, but I’m here when you’re ready to talk Just give me a little knock❤️`;
 
       let i = 0;
       let opened = false;
@@ -438,33 +265,34 @@
       function openEnvelope() {
         if (opened) return;
         opened = true;
-
-        // Animate opening
         document.getElementById("envWrapper").classList.add("open");
         document.getElementById("instruct").style.display = "none";
-
-        // Start typing after letter is pulled out
         setTimeout(typeWriter, 1200);
       }
 
       function typeWriter() {
         const messageEl = document.getElementById("message");
+        const letterContainer = messageEl.parentElement;
+
         if (i < text.length) {
           messageEl.innerHTML += text[i];
           i++;
-          // Auto-scroll inside letter if text gets too long
-          messageEl.parentElement.scrollTop =
-            messageEl.parentElement.scrollHeight;
-          setTimeout(typeWriter, 45);
+          // Keeps scrolling down while typing
+          letterContainer.scrollTop = letterContainer.scrollHeight;
+          setTimeout(typeWriter, 150);
         } else {
-          document.getElementById("loveBtn").style.display = "block";
+          // --- CHANGE IS HERE ---
+          const btn = document.getElementById("loveBtn");
+          btn.style.display = "block"; // Show the button
+          // This forces the letter to scroll to the very bottom so the button is visible
+          letterContainer.scrollTop = letterContainer.scrollHeight; 
+          // -----------------------
         }
       }
 
       function showLove(e) {
         e.stopPropagation();
         document.getElementById("kissSound").play();
-
         for (let j = 0; j < 15; j++) {
           const kiss = document.createElement("div");
           kiss.className = "kiss";
@@ -476,27 +304,10 @@
         }
       }
 
-      /* Background Decorations */
-      /* Background Decorations */
       function createHeart() {
         const heart = document.createElement("div");
         heart.className = "heart";
-
-        // Add as many different colored hearts as you like here:
-        heart.innerHTML = [
-          "❤️",
-          "💖",
-          "💝",
-          "💕",
-          "💛",
-          "🧡",
-          "💜",
-          "💙",
-          "💚",
-        ][
-          Math.floor(Math.random() * 9) // Change this 4 to 9 to match the number of hearts
-        ];
-
+        heart.innerHTML = ["❤️", "💖", "💝", "💕", "💛", "🧡", "💜", "💙", "💚"][Math.floor(Math.random() * 9)];
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.fontSize = Math.random() * 30 + 15 + "px";
         heart.style.animationDuration = Math.random() * 3 + 5 + "s";
@@ -504,6 +315,7 @@
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
       }
+
       const photos = [
         "https://i.ibb.co.com/jkNWg1Tc/4.jpg",
         "https://i.ibb.co.com/qL4m1TWm/7.jpg",
@@ -526,39 +338,20 @@
 
       function celebrate(e) {
         e.stopPropagation();
-        const colors = [
-          "#ff4d6d",
-          "#ffb3c1",
-          "#ffccd5",
-          "#fff0f3",
-          "#ff758f",
-          "#FFD700",
-        ];
-
-        // Create 50 sparkles for the celebration
+        const colors = ["#ff4d6d", "#ffb3c1", "#ffccd5", "#fff0f3", "#ff758f", "#FFD700"];
         for (let i = 0; i < 50; i++) {
           const sparkle = document.createElement("div");
           sparkle.className = "sparkle";
-
-          // Set random colors and explosion directions
-          sparkle.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
+          sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
           sparkle.style.left = e.clientX + "px";
           sparkle.style.top = e.clientY + "px";
-
-          // Randomize the distance they travel
           const dx = (Math.random() - 0.5) * 400 + "px";
           const dy = (Math.random() - 0.5) * 400 + "px";
           sparkle.style.setProperty("--dx", dx);
           sparkle.style.setProperty("--dy", dy);
-
           document.body.appendChild(sparkle);
-
-          // Remove from DOM after animation
           setTimeout(() => sparkle.remove(), 1000);
         }
-
-        // Hide the clicked balloon temporarily
         e.target.style.display = "none";
         setTimeout(() => (e.target.style.display = "flex"), 2000);
       }
