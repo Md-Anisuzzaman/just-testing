@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Message From My Heart</title>
+
+    <style>
+      :root {
+        --env-color: #e63946; /* Bright Red */
+        --env-dark: #b91c1c; /* Deep Red */
+        --letter-bg: #fff5f5; /* Off-white/pinkish paper */
+      }
+
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+        background: linear-gradient(
+            135deg,
+            #fff0f3 0%,
+            #ffe5ec 50%,
+            #e63946 100%
+          )
+          no-repeat fixed;
+
+        background-size: 400% 400%;
+        animation: bgMove 12s infinite alternate;
+        overflow: hidden;
+        position: fixed;
+      }
+
+      @keyframes bgMove {
+        0% {
+          background-position: left;
+        }
+        100% {
+          background-position: right;
+        }
+      }
+
+      .envelope-wrapper {
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.4s ease;
+        z-index: 50;
+      }
+
+      .envelope-wrapper:hover {
+        transform: scale(1.05);
+      }
+
+      .envelope {
+        position: relative;
+        width: 320px;
+        height: 200px;
+        background: var(--env-dark);
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 4;
+        border-top: 110px solid var(--env-color);
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        transform-origin: top;
+        transition:
+          transform 0.6s 0.2s,
+          z-index 0.2s 0.4s;
+      }
+
+      .envelope::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        border-top: 100px solid transparent;
+        border-left: 160px solid var(--env-color);
+        border-right: 160px solid var(--env-color);
+        border-bottom: 100px solid var(--env-color);
+        border-radius: 0 0 10px 10px;
+      }
+
+      .letter {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        height: 85%;
+        background: var(--letter-bg);
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        z-index: 2;
+        transition:
+          transform 0.7s 0.5s,
+          height 0.7s 0.5s,
+          z-index 0.1s 0.5s;
+        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+      }
+
+      .envelope-wrapper.open .envelope::before {
+        transform: rotateX(180deg);
+        z-index: 1;
+      }
+
+      .envelope-wrapper.open .letter {
+        transform: translate(-50%, -150px);
+        height: 230px;
+        z-index: 5;
+      }
+
+      #message {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        white-space: pre-wrap;
+        margin: 0;
+        font-weight: 460;
+      }
+
+      .love-btn {
+        display: none;
+        margin: 20px auto 10px;
+        padding: 12px 24px;
+        background: #e63946;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .heart,
+      .photoHeart {
+        position: absolute;
+        pointer-events: none;
+      }
+      .heart {
+        font-size: 24px;
+        animation: float 6s linear infinite;
+      }
+
+      .photoHeart {
+        width: 250px;
+        height: 250px;
+        animation: floatPhoto linear infinite;
+        z-index: 0;
+      }
+      .photoHeart img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        clip-path: polygon(
+          50% 90%,
+          90% 60%,
+          90% 30%,
+          70% 10%,
+          50% 25%,
+          30% 10%,
+          10% 30%,
+          10% 60%
+        );
+        opacity: 0.8;
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(100vh);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-10vh);
+          opacity: 0;
+        }
+      }
+      @keyframes floatPhoto {
+        from {
+          transform: translateY(110vh) rotate(0deg);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-20vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .kiss {
+        position: absolute;
+        font-size: 35px;
+        animation: kissFly 2s ease forwards;
+        z-index: 100;
+      }
+      @keyframes kissFly {
+        0% {
+          transform: translateY(0) scale(0.5);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-250px) scale(2);
+          opacity: 0;
+        }
+      }
+
+      .instruction {
+        position: absolute;
+        bottom: -40px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .balloon {
+        position: absolute;
+        top: 100vh;
+        width: 80px;
+        height: 100px;
+        background: #ff4d6d;
+        border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        z-index: 60;
+        animation: floatUp 10s linear infinite;
+        box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-120vh) rotate(10deg);
+        }
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        animation: explode 1s ease-out forwards;
+      }
+
+      @keyframes explode {
+        0% {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--dx), var(--dy));
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .envelope {
+          width: 280px;
+          height: 180px;
+        }
+        .envelope::before {
+          border-top-width: 90px;
+          border-left-width: 140px;
+          border-right-width: 140px;
+        }
+        .envelope::after {
+          border-left-width: 140px;
+          border-right-width: 140px;
+          border-bottom-width: 90px;
+        }
+        .envelope-wrapper.open .letter {
+          transform: translate(-50%, -100px);
+          height: 250px;
+          width: 95%;
+        }
+        .photoHeart {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      /* Error Page Styling */
+      #error-screen {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f2f4fd;
+        z-index: 9999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .error-container {
+        max-width: 400px;
+        background: white;
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      }
+
+      .error-container img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .error-container h1 {
+        color: #e63946;
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      .error-container p {
+        color: #006c97;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+      .error-container div {
+        font-size: 60px;
+        lineHeight: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="error-screen">
+      <div class="error-container">
+        <img
+          src="https://i.ibb.co.com/RGvDMn0q/heartbreak.jpg"
+          alt="Access Denied"
+        />
+        <h1>Access Restricted</h1>
+        <p>
+          যার জন্যে সাইটটা বানানো তার কোন উত্তর আসেনি মনের যান্ত্ৰিক গোলযোগের কারনে তার উত্তরের জন্যে সাইটটা বন্ধ। আশা করি সে ভালো আছে, যদি তার মনে হয় সে কথা বলতে চায়, আমি অপেক্ষায় আছি শুনতে।
+        </p>
+         <div>😊</div>
+      </div>
+    </div>
+
+    <div class="envelope-wrapper" id="envWrapper" onclick="openEnvelope()">
+      <div class="envelope">
+        <div class="letter">
+          <i id="message"></i>
+          <button class="love-btn" id="loveBtn" onclick="showLove(event)">
+            Tap if you still love me💛
+          </button>
+        </div>
+      </div>
+      <div class="instruction" id="instruct">Click to Open ✉️</div>
+    </div>
+
+    <audio id="kissSound">
+      <source
+        src="./images/mixkit-long-loving-kiss-2195.wav"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <div
+      class="balloon"
+      style="left: 10%; animation-delay: 0s"
+      onclick="celebrate(event)"
+    >
+      গাধী
+    </div>
+    <div
+      class="balloon"
+      style="right: 10%; animation-delay: 5s; background: #ffd700; color: #333"
+      onclick="celebrate(event)"
+    >
+      স্যার
+    </div>
+
+    <script>
+      // SET THIS TO true TO SHOW THE SITE, OR false TO SHOW THE ERROR PAGE
+      const isAuthorized = true;
+
+      window.onload = function () {
+        if (!isAuthorized) {
+          // Show error screen
+          document.getElementById("error-screen").style.display = "flex";
+          // Hide the main content
+          document.getElementById("envWrapper").style.display = "none";
+          // Hide balloons
+          const balloons = document.querySelectorAll(".balloon");
+          balloons.forEach((b) => (b.style.display = "none"));
+        }
+      };
+      const text = `Dear "Gadhi",
+
+I know I’ve been gone for a while, and I’m sorry for the silence. I needed to get my head clear to keep my promise to you. I did it; I finally landed the job, and honestly, you were my biggest motivation to get the job so quickly.
+
+I know my 'brain fog' and the way I handled things made it difficult for you, and I’m sorry from the bottom of my heart. Now that I’ve found my footing, I want to give us the effort you deserve. I’d love to celebrate this gain and start a new chapter with you.
+
+I still respect you and the feelings we shared. If you’re open to it, I’d really like to talk again and see where things could go from here. If you don’t feel the same anymore, I will respect that too. Either way, I truly hope you’re doing well.
+
+I’ll give you some space and time to process this, but I’m here when you’re ready to talk Just give me a little knock❤️`;
+
+      let i = 0;
+      let opened = false;
+
+      function openEnvelope() {
+        if (opened) return;
+        opened = true;
+        document.getElementById("envWrapper").classList.add("open");
+        document.getElementById("instruct").style.display = "none";
+        setTimeout(typeWriter, 1200);
+      }
+
+      function typeWriter() {
+        const messageEl = document.getElementById("message");
+        const letterContainer = messageEl.parentElement;
+
+        if (i < text.length) {
+          messageEl.innerHTML += text[i];
+          i++;
+          // Keeps scrolling down while typing
+          letterContainer.scrollTop = letterContainer.scrollHeight;
+          setTimeout(typeWriter, 150);
+        } else {
+          // --- CHANGE IS HERE ---
+          const btn = document.getElementById("loveBtn");
+          btn.style.display = "block"; // Show the button
+          // This forces the letter to scroll to the very bottom so the button is visible
+          letterContainer.scrollTop = letterContainer.scrollHeight;
+          // -----------------------
+        }
+      }
+
+      function showLove(e) {
+        e.stopPropagation();
+        document.getElementById("kissSound").play();
+        for (let j = 0; j < 15; j++) {
+          const kiss = document.createElement("div");
+          kiss.className = "kiss";
+          kiss.innerHTML = "💋";
+          kiss.style.left = e.clientX + (Math.random() * 150 - 75) + "px";
+          kiss.style.top = e.clientY + (Math.random() * 100 - 50) + "px";
+          document.body.appendChild(kiss);
+          setTimeout(() => kiss.remove(), 2000);
+        }
+      }
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = [
+          "❤️",
+          "💖",
+          "💝",
+          "💕",
+          "💛",
+          "🧡",
+          "💜",
+          "💙",
+          "💚",
+        ][Math.floor(Math.random() * 9)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 30 + 15 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+        heart.style.opacity = Math.random() * 0.5 + 0.5;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+
+      const photos = [
+        "https://i.ibb.co.com/jkNWg1Tc/4.jpg",
+        "https://i.ibb.co.com/qL4m1TWm/7.jpg",
+      ];
+
+      function createPhotoHeart() {
+        const div = document.createElement("div");
+        div.className = "photoHeart";
+        const img = document.createElement("img");
+        img.src = photos[Math.floor(Math.random() * photos.length)];
+        div.appendChild(img);
+        div.style.left = Math.random() * 100 + "vw";
+        div.style.animationDuration = Math.random() * 10 + 12 + "s";
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 20000);
+      }
+
+      setInterval(createHeart, 500);
+      setInterval(createPhotoHeart, 4000);
+
+      function celebrate(e) {
+        e.stopPropagation();
+        const colors = [
+          "#ff4d6d",
+          "#ffb3c1",
+          "#ffccd5",
+          "#fff0f3",
+          "#ff758f",
+          "#FFD700",
+        ];
+        for (let i = 0; i < 50; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+          sparkle.style.left = e.clientX + "px";
+          sparkle.style.top = e.clientY + "px";
+          const dx = (Math.random() - 0.5) * 400 + "px";
+          const dy = (Math.random() - 0.5) * 400 + "px";
+          sparkle.style.setProperty("--dx", dx);
+          sparkle.style.setProperty("--dy", dy);
+          document.body.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+        e.target.style.display = "none";
+        setTimeout(() => (e.target.style.display = "flex"), 2000);
+      }
+    </script>
+  </body>
+</html>
